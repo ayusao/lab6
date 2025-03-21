@@ -40,19 +40,24 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
+        stage('Deploy using Docker Compose') {
             agent {
                 docker {
-                    image 'bitnami/kubectl:latest'
+                    image 'docker:latest'
                     args '--privileged -v /var/run/docker.sock:/var/run/docker.sock -e HOME=/tmp'
                     reuseNode true
                 }
             }
             steps {
                 script {
-                    echo "Deploying to Kubernetes..."
-                    sh 'kubectl apply -f deployment.yaml'
-                    sh 'kubectl rollout restart deployment vizuo-app'  // Restart the deployment if needed
+                    echo "Deploying using Docker Compose..."
+
+                    // Build and start the containers using Docker Compose
+                    sh 'docker-compose -f docker-compose.yml up --build -d'
+
+                    // Optionally, you can add a command to check container status or logs
+                    sh 'docker-compose ps'  // List running containers
+                    // sh 'docker-compose logs'  // View logs (optional)
                 }
             }
         }

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  webapp:
+    image: vizuo:latest
+    build:
+      context: ./vizuo  
+      dockerfile: Dockerfile  # Dockerfile is inside the vizuo directory
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./vizuo:/app
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: bridge
