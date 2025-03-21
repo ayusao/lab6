@@ -21,54 +21,40 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                    args '--privileged -v /var/run/docker.sock:/var/run/docker.sock -e HOME=/tmp'
-                    reuseNode true
+        stage('Check Docker Access') {
+            steps {
+                script {
+                    echo "Checking Docker and Docker Compose versions..."
+                    sh 'docker --version'
+                    sh 'docker-compose --version'
+                    sh 'docker ps'
                 }
             }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 script {
                     echo "Building Docker image: $DOCKER_IMAGE"
-                    sh "docker build -t $DOCKER_IMAGE ."
-                    
-                    echo "Pushing Docker image to the registry..."
-                    sh "docker push $DOCKER_IMAGE"  // Optionally, push to a registry
+                    sh 'docker build -t $DOCKER_IMAGE .'
                 }
             }
         }
 
         stage('Deploy using Docker Compose') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                    args '--privileged -v /var/run/docker.sock:/var/run/docker.sock -e HOME=/tmp'
-                    reuseNode true
-                }
-            }
             steps {
                 script {
                     echo "Deploying using Docker Compose..."
-
-                    // Build and start the containers using Docker Compose
                     sh 'docker-compose -f docker-compose.yml up --build -d'
-
-                    // Optionally, you can add a command to check container status or logs
                     sh 'docker-compose ps'  // List running containers
-                    // sh 'docker-compose logs'  // View logs (optional)
                 }
             }
         }
     }
 
     post {
-        success {
-            echo "CI/CD Pipeline completed successfully!"
-        }
-        failure {
-            echo "CI/CD Pipeline failed!"
+        always {
+            echo "Pipeline execution completed!"
         }
     }
 }
