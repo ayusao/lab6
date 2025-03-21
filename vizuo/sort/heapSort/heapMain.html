@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heap Sort</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+  
+<body>
+    <br />
+    <h1 class="header">Heap Sort</h1>
+    <div class="allcontainers">
+    <div class="container barContainer">
+    <div id="heapArray"></div>
+    <div id="count"></div>
+    <div >
+        <button class="btn" id = "newArray">NEW RANDOM</button>
+        <button class="btn" id = "sort">START SORTING</button>
+        <button class="btn" onclick ="location.href = '../index.html'">RETURN</button>
+        <div class = "controlContainer">
+        <button class="btn1" onclick="decrement()"> - </button> 
+    <h2 id="counting"></h2>
+    <h2>x</h2>
+        <button class="btn1 plusbutton" onclick="increment()"> + </button>
+        <p>SPEED</p>
+    </div>
+    <div class="empty"></div>
+    </div>
+    </div>
+    <div class = "container treeContainer">
+        <div class="tree"></div>
+    </div>
+    </div>
+    <script src ="extra.js"></script>
+    <script src="heapSort.js"></script>
+    <script src ="heapTree.js"></script>
+</body>
+  
+</html>

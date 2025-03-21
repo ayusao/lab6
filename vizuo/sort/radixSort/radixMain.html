@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radix Sort</title>
+</head>
+  
+<body>
+    <br />
+    <h1 class="header">RADIX SORT</h1>
+    <div id="array"></div>
+    <div id="count"></div>
+    <div class="buttonContainer">
+        <button class="btn" id = "newArray" >NEW RANDOM</button>
+        <button class="btn" id = "sort">START SORTING</button>
+        <button class="btn" onclick ="location.href = '../index.html'">RETURN</button>
+        <div class = "controlContainer">
+            <button class="btn1" onclick="decrement()"> - </button> 
+        <h2 id="counting"></h2>
+        <h2>x</h2>
+            <button class="btn1 plusbutton" onclick="increment()"> + </button>
+            <p>SPEED</p>
+        </div>
+        <div class = "controlContainer2">
+            <button class="btn1" id = "sizeArray" onclick="decrementSize()"> - </button> 
+        <h2 id="sizeCount"></h2>
+            <button class="btn1" id = "sizeArray2" onclick="incrementSize()"> + </button>
+            <p>SIZE</p>
+        </div>
+    </div>
+    <script src="radixSort.js"></script>
+    <script src = "extra.js"></script>
+</body>
+  
+</html>

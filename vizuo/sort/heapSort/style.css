@@ -1,0 +1,256 @@
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-color: #202528;
+}
+  
+.header {
+    font-size: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 20%;
+    font-weight: 900;
+    font-stretch: ultra-expanded;
+    color: #fff;
+}
+
+.allcontainers{
+    display: flex;
+    width: 50%;
+}
+
+.container {
+    flex: 1;
+    margin: 10px;
+  }
+  
+  .container:first-child {
+    margin-right: -80px;
+    margin-left: 30px;
+  }
+
+#heapArray {
+    height: 270px;
+    width: 598px;
+    margin: auto;
+    position: relative;
+    margin-top: 140px;
+}
+  
+.block {
+    width: 28px;
+    background-color: #6b5b95;
+    position: absolute;
+    bottom: 0px;
+    transition: 0.2s all ease;
+}
+  
+.block_id {
+    position: absolute;
+    color: #fff;
+    margin-top: -20px;
+    width: 100%;
+    text-align: center;
+}
+  
+.block_id2 {
+    position: absolute;
+    color: #fff;
+    margin-top: 22px;
+    width: 100%;
+    text-align: center;
+}
+  
+.block2 {
+    width: 28px;
+    background-color: darkgray;
+    position: absolute;
+    transition: 0.2s all ease;
+}
+  
+.block_id3 {
+    position: absolute;
+    color: #fff;
+    margin-top: 1px;
+    width: 100%;
+    text-align: center;
+}
+  
+#count {
+    height: 20px;
+    width: 598px;
+    margin: auto;
+    margin-left: 0%;
+}
+
+.btn, .btn1{
+    margin: 40px 20px;
+    padding: 7px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    min-width: 30px;
+    color:#fff;
+   background-color: #6b5b95;
+}
+
+.btn:hover, .btn1:hover{
+    background-color:cadetblue;
+    color: black;
+}
+.btn:active, .btn1:active{
+    opacity:0.6;
+}
+
+.header:hover{
+    color: cadetblue;
+}
+
+.tree{
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.node{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.nodeChildren{
+    display: flex;
+    padding: 20px 0;
+    border-top: 1px solid #dcdcdc;
+}
+
+/*for the lines*/
+.node:not(.nodeRight)>.nodeElement::before{
+    content: '';
+    height: 28px;
+    width: 1px;
+    background-color: #dcdcdc;
+    display: block;
+    position: absolute;
+    left: 18px;
+    right: 0; 
+    top: -24px;
+    margin:auto;
+    transform-origin:left;
+    transform: rotate(45deg);
+}
+
+.node:not(.nodeLeft)>.nodeElement::before{
+    content: '';
+    height: 28px;
+    width: 1px;
+    background-color: #dcdcdc;
+    display: block;
+    position: absolute;
+    left: 0px;
+    right: 18px; 
+    top: -24px;
+    margin:auto;
+    transform-origin: right;
+    transform: rotate(-45deg);
+}
+
+
+.nodeBottomLine{
+    height:20px;
+    width: 0.5px;
+    background-color: #dcdcdc;
+}
+
+.node.nodeLeft{
+    margin-right:3px;
+}
+
+.node.nodeRight{
+    margin-left:3px;
+}
+
+.nodeElement{
+    height: 50px;
+    background-color: #6b5b95;
+    border-radius: 25px;
+    min-width:50px;
+    max-width: max-content;
+    padding: 10px 14px;
+    font-size: 20px;
+    color:beige;
+    line-height: 26px;
+    text-align: center;
+}
+
+.treeContainer {
+    margin-top: 30px;
+    margin-left: 50%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+.nodeElement:hover{
+    border: 2px solid aqua;
+    color: aqua;
+}
+
+.nodeElement:hover ~ .nodeChildren,
+.nodeElement:hover ~ .nodeChildren .nodeChildren{
+    border-top-width:2px;
+    border-color: aqua;
+}
+
+.nodeElement:hover ~ .nodeBottomLine,
+.nodeElement:hover ~ .nodeChildren .nodeBottomLine {
+    width: 2px;
+    background-color: aqua;
+}
+
+.nodeElement:hover ~ .nodeChildren .nodeElement::before{
+    width:2px;
+    background-color:aqua;
+}
+
+/* for the counter button  */
+h2 {
+    display:inline-table;
+    color:beige;
+    font-size: 18px;
+    margin : 0 0;
+    align-items: center;
+}
+
+.btn1{
+    margin : 0 10px;
+}
+
+.plusbutton{
+    left: 140px;
+    position :absolute;
+}
+
+.controlContainer{
+    margin: 0 20px;
+    margin-right: 70%;
+    margin-top: -3%;
+}
+
+p {
+    color:beige;
+    font-size: 18px;
+    margin : 5px 40px;
+    align-items: center;
+}

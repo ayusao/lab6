@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <title>DSAProject</title>
+</head>
+
+<body>
+    <h2>SORTING VISUALIZER</h2>
+    <br>
+    <div>
+        <div class="description">
+            A web based program that allows users to see how different sorting algorithms work by visually demonstrating the sorting process step by step.
+            Sorting algorithms are commonly used in computer science to arrange data in a particular order, such as ascending or descending.
+            The program is a "bar chart" visualization, where each element in the list is represented by a bar whose height corresponds to the element's value. 
+            As the sorting algorithm runs, the bars move and change color to reflect the current state of the list.
+            Click one of the below buttons to observe the data manipulation in action.
+        </div>
+        <div class="select">
+        <button class="btn" onclick="lead(1)">BUBBLE SORT</button>
+        <button class="btn" onclick="lead(3)">SELECTION SORT</button>
+        <button class="btn" onclick="lead(2)">INSERTION SORT</button>
+        <button class="btn" onclick="lead(4)">QUICK SORT</button>
+        <button class="btn" onclick="lead(5)">MERGE SORT</button>
+        <button class="btn" onclick="lead(8)">SHELL SORT</button>
+        <button class="btn" onclick="lead(6)">HEAP SORT</button>
+        <button class="btn" onclick="lead(7)">RADIX SORT</button>
+    </div>  
+        <div class="home">
+        <button class= "btn" onclick="lead(9)">HOME</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

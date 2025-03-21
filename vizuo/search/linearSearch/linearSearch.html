@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linear Search</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <br/>
+  <h1 class="header">Linear Search</h1>
+  <div id="bar_container"></div>
+  <div id="bar_pos_container"></div>
+  <br/><br/>
+  <div class="textClass" style="text-align:center">
+     <label for="fname">
+      Number to be searched:
+     </label>
+     <input type="text" id="inputedData" name="inputedData" />
+     <input type="button" id="search_btn" value="SEARCH"/>
+     <input type="button" id="new_array_btn" value="NEW DATA"/>
+     <button class="return" onclick ="location.href = '../searchIndex.html'">RETURN</button>
+     <br/><br/>
+     <div type="textOut" id="output_text"></div>
+     <div type="textOut" id="output_text2"></div>
+     <div type="textOut" id="data_text"></div>
+  </div>
+  <div class="col" id="input">
+    <span id="speed">SPEED
+        <input id="speed_input" type="range" min="20" max="300" stepDown=10 value=60>
+    </span>
+  </div>
+  <div class="col" id="Asize">
+    <span id="size">SIZE
+      <input id="array_size" type="range" min="5" max="40" step=1 value=20>
+  </span>
+  </div>
+  <script src="linearSearch.js"></script>
+</body>
+</html>

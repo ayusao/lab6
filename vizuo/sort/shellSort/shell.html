@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shell Sort</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <br/>
+  <h1 class="header">Shell Sort</h1>
+  <div id="bar_container"></div>
+  <div class="button_container">
+    <button id="new_array">NEW DATA</button>
+    <button id="sort_btn">SORT</button>
+    <button class="return" onclick ="location.href = '../index.html'">RETURN</button>
+  </div>
+  <div class="col" id="input">
+    <span id="speed">SPEED
+        <input id="speed_input" type="range" min="20" max="300" stepDown=10 value=60>
+    </span>
+  </div>
+  <div class="col" id="Asize">
+    <span id="size">SIZE
+      <input id="array_size" type="range" min="5" max="50" step=1 value=20>
+  </span>
+  </div>
+  <script src="shellSort.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-color: #202528;
+}
+  
+.header {
+    font-size: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+  
+h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 20%;
+    font-weight: 900;
+    font-stretch: ultra-expanded;
+    color: #fff;
+}
+#array {
+    height: 270px;
+    width: 598px;
+    margin: auto;
+    margin-left: 25%;
+    position: relative;
+    margin-top: 150px;
+    align-items: center;
+    justify-content: center;
+}
+  
+.block {
+    width: 28px;
+    background-color: #6b5b95;
+    position: absolute;
+    justify-content: center;
+    bottom: 0px;
+    transition: 0.2s all ease;
+}
+  
+.block_id {
+    position: absolute;
+    color: #fff;
+    margin-top: -20px;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+  
+.block_id2 {
+    position: absolute;
+    color: #fff;
+    margin-top: 22px;
+    width: 100%;
+    text-align: center;
+}
+  
+.block2 {
+    width: 28px;
+    background-color: darkgray;
+    position: absolute;
+    transition: 0.2s all ease;
+}
+  
+.block_id3 {
+    position: absolute;
+    color: #fff;
+    margin-top: 1px;
+    width: 100%;
+    text-align: center;
+}
+  
+#count {
+    height: 20px;
+    width: 598px;
+    margin: auto;
+    margin-left: 25%;
+    align-items: center;
+}
+
+.btn, .btn1{
+    margin: 20px 20px;
+    padding: 7px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    min-width: 30px;
+    color:#fff;
+   background-color: #6b5b95;
+}
+
+.btn:hover, .btn1:hover{
+    background-color:cadetblue;
+    color: black;
+}
+.btn:active, .btn1:active{
+    opacity:0.6;
+}
+
+.header:hover{
+    color: cadetblue;
+}
+
+h2 {
+    display:inline-table;
+    color:beige;
+    font-size: 18px;
+    margin : 0 0;
+    align-items: center;
+}
+
+.btn1{
+    margin : 0 10px;
+}
+
+.controlContainer{
+    margin: 0 20px;
+    margin-top: 0%;
+    margin-right: 85%;
+}
+
+.controlContainer2{
+    margin: 0 20px;
+    margin-top: -6.6%;
+    margin-left: 21%;
+    margin-right: 65%;
+}
+
+.buttonContainer{
+    margin-left: 500px;
+    margin-top: 2%;
+}
+
+p {
+    color:beige;
+    font-size: 18px;
+    margin : 5px 40px;
+    align-items: center;
+}
