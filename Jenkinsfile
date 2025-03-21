@@ -31,11 +31,11 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Building Docker image..."
-                    sh 'docker build -t $DOCKER_IMAGE .'
+                    echo "Building Docker image: $DOCKER_IMAGE"
+                    sh "docker build -t $DOCKER_IMAGE ."
                     
                     echo "Pushing Docker image to the registry..."
-                    sh 'docker push $DOCKER_IMAGE'  // Optionally, push to a registry
+                    sh "docker push $DOCKER_IMAGE"  // Optionally, push to a registry
                 }
             }
         }
