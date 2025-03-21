@@ -8,7 +8,7 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'proj-jenkins'  // Jenkins credentials ID for GitHub authentication
         GITHUB_REPO = 'https://github.com/ayusao/VIZUO.git'  // GitHub repository URL
-        DOCKER_IMAGE = "vizuo:latest"  // Docker image name
+        DOCKER_IMAGE = "vizuo/vizuo:latest"  // Docker image name
     }
 
     stages {
