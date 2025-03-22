@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploying using Docker Compose..."
-                    sh 'docker-compose -f docker-compose.yml up --build -d'
+                    sh 'docker-compose -f ./docker-compose.yml up --build -d'
                     sh 'docker-compose ps'  // List running containers
                 }
             }
