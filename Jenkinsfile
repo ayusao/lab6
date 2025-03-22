@@ -42,19 +42,20 @@ pipeline {
         }
 
         stage('Deploy using Docker Compose') {
-    steps {
-        script {
-            echo "Deploying using Docker Compose..."
-            sh 'pwd'  // Check the current working directory
-            sh 'ls -la'  // List files to confirm docker-compose.yml is present
-            sh 'docker-compose -f ./docker-compose.yml up --build -d'
-            sh 'docker-compose ps'  // List running containers
+            steps {
+                script {
+                    echo "Deploying using Docker Compose..."
+                    sh 'pwd'  // Check the current working directory
+                    sh 'ls -la'  // List files to confirm docker-compose.yml is present
+                    sh 'docker-compose -f ./docker-compose.yml up --build -d'
+                    sh 'docker-compose ps'  // List running containers
+                }
+            }
         }
-    }
-}
     post {
         always {
             echo "Pipeline execution completed!"
         }
+    }
     }
 }
