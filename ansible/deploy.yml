@@ -13,8 +13,19 @@
       apt:
         name:
           - docker.io
-          - kubectl
         state: present
+      become: yes
+
+    - name: Add Kubernetes APT repository
+      apt_repository:
+        repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+        state: present
+
+    - name: Install kubectl
+      apt:
+        name: kubectl
+        state: present
+        update_cache: yes
       become: yes
 
     - name: Log in to Docker Hub
