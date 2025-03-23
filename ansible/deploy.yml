@@ -22,6 +22,12 @@
       register: docker_login
       changed_when: "'Login Succeeded' in docker_login.stdout"
       failed_when: "'Login Failed' in docker_login.stderr"
+
+    - name: Install Kubernetes CLI (kubectl)
+      apt:
+      name: kubectl
+      state: present
+      update_cache: yes
     
     - name: Pull the latest Docker image
       command: "docker pull {{ docker_image }}:{{ docker_tag }}"
