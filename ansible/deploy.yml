@@ -1,60 +1,118 @@
+---
 - name: Deploy Vizuo to local Kubernetes
   hosts: localhost
   become: yes
+  collections:
+    - community.kubernetes
+    - community.docker
+
   vars:
     docker_username: ""
     docker_password: ""
     docker_image: "vizuo/vizuo"
     docker_tag: "latest"
-    ansible_become_pass: ""
 
   tasks:
+    - name: Ensure old Docker versions are removed
+      apt:
+        name:
+          - docker
+          - docker-engine
+          - docker.io
+          - containerd
+        state: absent
+      ignore_errors: yes
+
     - name: Install required dependencies
       apt:
         name:
-          - docker.io
+          - ca-certificates
+          - curl
+          - gnupg
         state: present
-      become: yes
+        update_cache: yes
 
-    - name: Add Kubernetes APT repository
-      apt_repository:
-        repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+    - name: Add Docker GPG key
+      shell: |
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | tee /etc/apt/keyrings/docker.asc > /dev/null
+        chmod a+r /etc/apt/keyrings/docker.asc
+      args:
+        executable: /bin/bash
+
+    - name: Add Docker repository
+      shell: |
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+        apt update
+      args:
+        executable: /bin/bash
+
+    - name: Install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
         state: present
+        update_cache: yes
 
-    - name: Install kubectl
+    - name: Add Kubernetes GPG Key
+      shell: |
+        curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo tee /etc/apt/keyrings/kubernetes-apt-keyring.asc >/dev/null
+      args:
+        executable: /bin/bash
+
+    - name: Add Kubernetes repository
+      shell: |
+        echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+        apt update
+      args:
+        executable: /bin/bash
+
+    - name: Install Kubernetes CLI (kubectl)
       apt:
         name: kubectl
         state: present
         update_cache: yes
-      become: yes
 
-    - name: Log in to Docker Hub
-      command: "docker login -u {{ docker_username }} -p {{ docker_password }}"
-      register: docker_login
-      changed_when: "'Login Succeeded' in docker_login.stdout"
-      failed_when: "'Login Failed' in docker_login.stderr"
+    - name: Login to Docker Hub
+      community.docker.docker_login:
+        username: "{{ docker_username }}"
+        password: "{{ docker_password }}"
 
     - name: Pull the latest Docker image
-      command: "docker pull {{ docker_image }}:{{ docker_tag }}"
-      changed_when: false
+      community.docker.docker_image:
+        name: "{{ docker_image }}"
+        tag: "{{ docker_tag }}"
+        source: pull
 
-    - name: Set Kubernetes context
-      command: "kubectl config use-context <your-cluster-context>"
-      failed_when: false # Make sure the context is set without failure
-    
-    - name: Apply Kubernetes deployment
-      command: "kubectl apply -f k8s/deployment.yaml"
-      register: kubectl_apply_deployment
-      failed_when: "'error' in kubectl_apply_deployment.stdout"
+    - name: Ensure ~/.kube directory exists
+      file:
+        path: ~/.kube
+        state: directory
+        mode: '0700'
 
-    - name: Apply Kubernetes service
-      command: "kubectl apply -f k8s/service.yaml"
-      register: kubectl_apply_service
-      failed_when: "'error' in kubectl_apply_service.stdout"
+    - name: Ensure ~/.kube/config is accessible
+      file:
+        path: ~/.kube/config
+        state: touch
+        mode: '0600'
 
-    - name: Wait for pods to be running
-      command: "kubectl wait --for=condition=ready pod -l app=vizuo --timeout=600s"
-      failed_when: false # Ensure it waits for the pods to be ready
+    - name: Apply Kubernetes Deployment
+      kubernetes.core.k8s:
+        state: present
+        src: "k8s/deployment.yaml"
+        kubeconfig: ~/.kube/config
+
+    - name: Apply Kubernetes Service
+      kubernetes.core.k8s:
+        state: present
+        src: "k8s/service.yaml"
+        kubeconfig: ~/.kube/config
+
+    - name: Wait for pods to be ready
+      shell: "kubectl wait --for=condition=ready pod -l app=vizuo --timeout=600s"
+      failed_when: false
 
     - name: Verify Deployment
       command: "kubectl get pods"
