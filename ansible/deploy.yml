@@ -23,6 +23,26 @@
         state: absent
       ignore_errors: yes
 
+    - name: Add MongoDB GPG Key
+      shell: |
+        curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | tee /etc/apt/trusted.gpg.d/mongodb.asc > /dev/null
+      args:
+        executable: /bin/bash
+
+    - name: Disable i386 architecture for Brave repository
+      shell: |
+        dpkg --remove-architecture i386
+      args:
+        executable: /bin/bash
+      ignore_errors: yes
+
+    - name: Remove fingerprint GUI repository
+      shell: |
+        sudo add-apt-repository --remove ppa:fingerprint/fingerprint-gui
+      args:
+        executable: /bin/bash
+      ignore_errors: yes
+
     - name: Install required dependencies
       apt:
         name:
