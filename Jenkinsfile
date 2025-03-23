@@ -15,7 +15,7 @@ pipeline {
             steps {
                 git(
                     branch: 'main', 
-                    credentialsId: 'lab_jenkins_PAT', 
+                    credentialsId: 'proj-jenkins', 
                     url: 'https://github.com/ayusao/lab6.git'
                 )
             }
