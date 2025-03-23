@@ -57,18 +57,18 @@ pipeline {
                         usernamePassword(credentialsId: 'sudo-credentials', usernameVariable: 'SUDO_USER', passwordVariable: 'SUDO_PASS')
                     ]) {
                         sh '''
-                        ansible-playbook deploy.yml --extra-vars '
-                        {
-                            "docker_username": "${DOCKER_USERNAME}",
-                            "docker_password": "${DOCKER_PASSWORD}",
-                            "docker_image": "${DOCKER_IMAGE}",
-                            "docker_tag": "${DOCKER_TAG}",
-                            "ansible_become_pass": "${SUDO_PASS}"
-                        }'
+                        ansible-playbook deploy.yml --extra-vars "
+                            docker_username=${DOCKER_USERNAME}
+                            docker_password=${DOCKER_PASSWORD}
+                            docker_image=${DOCKER_IMAGE}
+                            docker_tag=${DOCKER_TAG}
+                            ansible_become_pass=${SUDO_PASS}
+                        "
                         '''
                     }
                 }
             }
         }
+
     }
 }
