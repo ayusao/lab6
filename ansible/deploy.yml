@@ -1,0 +1,53 @@
+- name: Deploy Vizuo to local Kubernetes
+  hosts: localhost
+  become: yes
+  vars:
+    docker_username: ""
+    docker_password: ""
+    docker_image: "vizuo/vizuo"
+    docker_tag: "latest"
+    ansible_become_pass: ""
+
+  tasks:
+    - name: Install required dependencies
+      apt:
+        name:
+          - docker.io
+          - kubectl
+        state: present
+      become: yes
+
+    - name: Log in to Docker Hub
+      command: "docker login -u {{ docker_username }} -p {{ docker_password }}"
+      register: docker_login
+      changed_when: "'Login Succeeded' in docker_login.stdout"
+      failed_when: "'Login Failed' in docker_login.stderr"
+    
+    - name: Pull the latest Docker image
+      command: "docker pull {{ docker_image }}:{{ docker_tag }}"
+      changed_when: false
+
+    - name: Set Kubernetes context
+      command: "kubectl config use-context <your-cluster-context>"
+      failed_when: false # Make sure the context is set without failure
+    
+    - name: Apply Kubernetes deployment
+      command: "kubectl apply -f k8s/deployment.yaml"
+      register: kubectl_apply_deployment
+      failed_when: "'error' in kubectl_apply_deployment.stdout"
+
+    - name: Apply Kubernetes service
+      command: "kubectl apply -f k8s/service.yaml"
+      register: kubectl_apply_service
+      failed_when: "'error' in kubectl_apply_service.stdout"
+
+    - name: Wait for pods to be running
+      command: "kubectl wait --for=condition=ready pod -l app=vizuo --timeout=600s"
+      failed_when: false # Ensure it waits for the pods to be ready
+
+    - name: Verify Deployment
+      command: "kubectl get pods"
+      register: pod_status
+
+    - debug:
+        msg: "{{ pod_status.stdout }}"
