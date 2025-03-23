@@ -35,19 +35,19 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh '''
-                        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-                        docker build -t $DOCKER_IMAGE:$DOCKER_TAG .
-                        docker push $DOCKER_IMAGE:$DOCKER_TAG
-                        '''
-                    }
-                }
-            }
-        }
+        // stage('Build and Push Docker Image') {
+        //     steps {
+        //         script {
+        //             withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //                 sh '''
+        //                 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        //                 docker build -t $DOCKER_IMAGE:$DOCKER_TAG .
+        //                 docker push $DOCKER_IMAGE:$DOCKER_TAG
+        //                 '''
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Run Ansible Playbook') {
             steps {
